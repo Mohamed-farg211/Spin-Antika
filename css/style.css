@@ -1,0 +1,108 @@
+body{
+  height: 100vh;
+  background-color: #1B3F6E;
+}
+section {
+  position: relative;
+}
+section::after{
+  position: absolute;
+  content: "";
+  background-image: url(../Antika\ Pic.jpg);
+  background-position: center;
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+      top: 43%;
+    left: 48.4%;
+}
+
+.wheel-container {
+  text-align     : center;
+  margin-top     : 50px;
+  position       : relative;
+  display        : flex;
+  flex-direction : column;
+
+  justify-content: center;
+  align-items    : center;
+}
+
+/* العجلة */
+.wheel {
+  width        : 350px;
+  height       : 350px;
+  border-radius: 50%;
+  border       : 10px solid #333;
+  position     : relative;
+  overflow     : hidden;
+  transition   : transform 5s ease-out;
+  background   : conic-gradient(#ff4d4d 0deg 60deg,
+      #4d79ff 60deg 120deg,
+      #33cc33 120deg 180deg,
+      #ff9933 180deg 240deg,
+      #cc33ff 240deg 300deg,
+      #00cccc 300deg 360deg);
+}
+
+/* القطاعات */
+.slice {
+  position: absolute;
+  top     : 0;
+  left    : 0;
+  width   : 100%;
+  height  : 100%;
+}
+
+.slice span {
+  position      : absolute;
+  left          : 50%;
+  top           : 70px;
+  transform     : translateX(-50%) rotate(-90deg);
+  width         : 120px;
+  text-align    : center;
+  font-weight   : bold;
+  color         : #fff;
+  font-size     : 18px;
+  pointer-events: none;
+}
+
+/* السهم */
+.pointer {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 25px solid #241f1fe0;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 7;
+}
+
+/* زرار السبن */
+/* #spinBtn {
+  margin-top: 20px;
+  padding   : 10px 20px;
+  font-size : 18px;
+  cursor    : pointer;
+} */
+
+#spinBtn.disabled {
+  opacity: .5;
+  cursor : not-allowed;
+}
+
+.btn{
+  padding: 12px 30px ;
+  background-color: #00aff9;
+  border-radius: 10px;
+  margin-top: 20px;
+  font-weight: 900;
+  border:1px solid #60d5b8
+}
+.btn:hover{
+background-color: #00aff9;
+}

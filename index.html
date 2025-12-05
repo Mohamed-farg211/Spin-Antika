@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <link rel="icon" href="./Antika Pic.jpg">
+    
+    <title>لف واكسب</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <section class="d-flex justifi-content-center py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="wheel-container">
+
+              <div class="pointer"></div>
+
+              <div id="wheel" class="wheel">
+
+                <div class="slice" style="transform: rotate(30deg);">
+                  <span>بورتريه </span>
+                </div>
+
+                <div class="slice" style="transform: rotate(90deg);">
+                  <span>مج</span>
+                </div>
+
+                <div class="slice" style="transform: rotate(150deg);">
+                  <span>مادليه</span>
+                </div>
+
+                <div class="slice" style="transform: rotate(210deg);">
+                  <span>خصم 50%</span>
+                </div>
+
+                <div class="slice" style="transform: rotate(270deg);">
+                  <span>خصم 20%</span>
+                </div>
+
+                <div class="slice" style="transform: rotate(330deg);">
+                  <span>خسرت يصاحبي</span>
+                </div>
+
+              </div>
+
+              <button id="spinBtn" class="btn">Spin</button>
+              <p id="result"></p>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+  const spinBtn = document.getElementById("spinBtn");
+  const wheel = document.getElementById("wheel");
+  const result = document.getElementById("result");
+
+  // منع المحاولة الثانية
+  if (localStorage.getItem("usedSpin")) {
+    spinBtn.innerText = "تم استخدام المحاولة";
+    spinBtn.classList.add("disabled");
+    spinBtn.disabled = true;
+  }
+
+  spinBtn.onclick = function () {
+    if (localStorage.getItem("usedSpin")) return;
+
+    let randomDeg = Math.floor(3600 + Math.random() * 360);
+    wheel.style.transform = `rotate(${randomDeg}deg)`;
+
+    spinBtn.disabled = true;
+    localStorage.setItem("usedSpin", true);
+
+    spinBtn.innerText = "تم استخدام المحاولة";
+    spinBtn.classList.add("disabled");
+
+    setTimeout(() => {
+      let finalDeg = (360 - (randomDeg % 360)) % 360;
+      let sector = Math.floor(finalDeg / 60);
+
+      let prizes = [
+        "بورتريه",
+        "مج",
+        "ميداليه",
+        "خصم 50%",
+        "خصم 20%",
+        "خسرت يا صاحبي"
+      ];
+
+      let prize = prizes[sector];
+
+      // 🔥 لو خسرت
+      if (prize === "خسرت يا صاحبي") {
+        Swal.fire({
+          title: "😢 للأسف!",
+          text: "حاول مرة تانية يا صاحبي!",
+          icon: "error",
+          confirmButtonText: "تمام",
+          confirmButtonColor: "#d33",
+        });
+        return;
+      }
+
+      // 🎉 لو كسب
+      Swal.fire({
+        title: "🎉 مبرووووك!",
+        text: "لقد ربحت: " + prize,
+        icon: "success",
+        confirmButtonText: "إغلاق",
+        confirmButtonColor: "#3085d6",
+      });
+
+    }, 5000);
+  }
+
+    </script>
+  </body>
+</html>
